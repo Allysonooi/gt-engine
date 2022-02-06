@@ -1,6 +1,7 @@
 package com.gt.demo.controller;
 
 import com.gt.demo.model.Response;
+import com.gt.demo.model.Submission;
 import com.gt.demo.service.SubmissionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -22,5 +23,15 @@ public class SubmissionController {
         );
 
         return new ResponseEntity<>(response, HttpStatus.OK);
+    }
+
+    @PostMapping("/save")
+    public ResponseEntity<Response> saveSubmission (@RequestBody Submission submission) {
+        Response response = new Response(
+                submissionService.saveSubmissionForm(submission),
+                HttpStatus.CREATED.value()
+        );
+
+        return new ResponseEntity<>(response, HttpStatus.CREATED);
     }
 }

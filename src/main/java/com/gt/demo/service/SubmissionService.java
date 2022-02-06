@@ -15,4 +15,9 @@ public class SubmissionService {
     public List<Submission> getAllSubmissions() {
         return submissionRepository.findAll();
     }
+
+    public Submission saveSubmissionForm(Submission submission) {
+        submission.setFeedbackStatus("Processing");
+        return submissionRepository.save(submission);
+    }
 }
