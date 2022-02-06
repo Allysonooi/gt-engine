@@ -28,7 +28,7 @@ public class SubmissionController {
     @PostMapping("/save")
     public ResponseEntity<Response> saveSubmission (@RequestBody Submission submission) {
         Response response = new Response(
-                submissionService.saveSubmissionForm(submission),
+                submissionService.saveSubmissionForm(submission, null),
                 HttpStatus.CREATED.value()
         );
 
