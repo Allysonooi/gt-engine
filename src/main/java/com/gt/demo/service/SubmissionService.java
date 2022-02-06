@@ -4,9 +4,11 @@ import com.gt.demo.model.Submission;
 import com.gt.demo.respository.SubmissionRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 @Service
 @Slf4j
@@ -22,6 +24,7 @@ public class SubmissionService {
         return submissionRepository.findAll();
     }
 
+    @Async
     public Submission saveSubmissionForm(Submission submission, String feedbackStatus) {
         log.info("[SubmissionService] Saving single form submission...");
 
