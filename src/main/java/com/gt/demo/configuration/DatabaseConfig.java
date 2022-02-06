@@ -1,4 +1,4 @@
-package com.gt.demo.config;
+package com.gt.demo.configuration;
 
 import com.gt.demo.model.Submission;
 import com.gt.demo.respository.SubmissionRepository;
