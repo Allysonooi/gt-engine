@@ -8,7 +8,6 @@ import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.concurrent.TimeUnit;
 
 @Service
 @Slf4j
@@ -19,22 +18,17 @@ public class SubmissionService {
     @Autowired
     private CodeifyService codeifyService;
 
-    public List<Submission> getAllSubmissions() {
+    public List<Submission> getSubmissionsByEmailAndContact(String email, String contactNo) {
         log.info("[SubmissionService] Getting all submissions...");
-        return submissionRepository.findAll();
+        return submissionRepository.findByEmailAndContactNo(email, contactNo);
     }
 
     @Async
-    public Submission saveSubmissionForm(Submission submission, String feedbackStatus) {
-        log.info("[SubmissionService] Saving single form submission...");
+    public Submission saveSubmissionForm(Submission submission) {
+        String feedbackStatus = codeifyService.getFeedbackStatus(submission);
+        submission.setFeedbackStatus(feedbackStatus);
 
-        if (feedbackStatus == null) {
-            submission.setFeedbackStatus("unprocessed");
-            codeifyService.updateFeedbackStatus(submission);
-        } else {
-            submission.setFeedbackStatus(feedbackStatus);
-        }
-
+        log.info("[SubmissionService] Saving Submission...");
         return submissionRepository.save(submission);
     }
 }

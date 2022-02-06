@@ -15,20 +15,23 @@ public class SubmissionController {
     @Autowired
     private SubmissionService submissionService;
 
-    @GetMapping("/getAll")
-    public ResponseEntity<Response> getAllSubmissions () {
+    @GetMapping()
+    public ResponseEntity<Response> getSubmissions (@RequestParam String email, @RequestParam  String contactNo) {
+
         Response response = new Response(
-                submissionService.getAllSubmissions(),
+                submissionService.getSubmissionsByEmailAndContact(email, contactNo),
                 HttpStatus.OK.value()
         );
 
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
-    @PostMapping("/save")
-    public ResponseEntity<Response> saveSubmission (@RequestBody Submission submission) {
+    @PostMapping()
+    public ResponseEntity<Response> createSubmission (@RequestBody Submission submission) {
+        submission.setFeedbackStatus("unprocessed");
+
         Response response = new Response(
-                submissionService.saveSubmissionForm(submission, null),
+                submissionService.saveSubmissionForm(submission),
                 HttpStatus.CREATED.value()
         );
 
