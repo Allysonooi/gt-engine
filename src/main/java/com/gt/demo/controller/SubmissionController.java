@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/submissions")
+@CrossOrigin
 public class SubmissionController {
 
     @Autowired
